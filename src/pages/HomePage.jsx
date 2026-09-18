@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-
-export default function Dashboard() {
+import {
+	handleTiltLeave,
+	handleTiltMove,
+	scrollToSection,
+} from "../utils/Utils";
+export default function HomePage() {
 	// DOM Elements references for canvas systems and layouts
 	const heroRef = useRef(null);
 	const hcanvasRef = useRef(null);
@@ -153,50 +157,6 @@ export default function Dashboard() {
 			draw: "letterhead",
 		},
 	];
-
-	// Helper handling smooth interactive navigation scrolling
-	const scrollToSection = (id) => {
-		const element = document.getElementById(id);
-		if (element) {
-			element.scrollIntoView({ behavior: "smooth" });
-		}
-	};
-
-	// Reusable card 3D tilt tracking effect
-	const handleTiltMove = (
-		e,
-		perspective = 600,
-		rotX = 14,
-		rotY = 14,
-		transZ = 0,
-		transY = 0,
-		isScale = false,
-	) => {
-		const el = e.currentTarget;
-		const r = el.getBoundingClientRect();
-		const x = (e.clientX - r.left) / r.width - 0.5;
-		const y = (e.clientY - r.top) / r.height - 0.5;
-
-		let transformStr = `perspective(${perspective}px) rotateX(${-y * rotX}deg) rotateY(${x * rotY}deg)`;
-		if (transZ) transformStr += ` translateZ(${transZ}px)`;
-		if (transY) transformStr += ` translateY(${transY}px)`;
-		if (isScale) transformStr += ` scale(1.02)`;
-
-		el.style.transform = transformStr;
-		if (!isScale) {
-			el.style.boxShadow = `${-x * 20}px ${-y * 20}px 40px rgba(0,86,179,0.15)`;
-		}
-	};
-
-	const handleTiltLeave = (e, defaultTransform = "") => {
-		const el = e.currentTarget;
-		el.style.transform = defaultTransform;
-		el.style.boxShadow = "";
-		el.style.transition = "transform 0.5s, box-shadow 0.5s";
-		setTimeout(() => {
-			el.style.transition = "";
-		}, 500);
-	};
 
 	// 2D Procedural Machinery Render Vectors
 	const drawDigitalPrinter = (canvas) => {
@@ -914,60 +874,6 @@ export default function Dashboard() {
 				}}
 			/>
 
-			{/* Nav Header Area */}
-			<nav className="bg-white/92 backdrop-blur-[20px] px-[5%] h-16 flex items-center justify-between sticky top-0 z-[200] border-b border-[#0056b3]/10 shadow-[0_2px_24px_rgba(0,0,0,0.06)]">
-				<div className="flex items-center gap-2.5">
-					<div className="w-9 h-9 rounded-[10px] bg-gradient-to-br from-[#0056b3] to-[#00aeef] flex items-center justify-center font-black text-[12px] text-white tracking-[-0.5px] shadow-[0_4px_12px_rgba(0,86,179,0.35)]">
-						RKD
-					</div>
-					<div className="leading-tight">
-						<b className="text-1rem font-extrabold text-[#0056b3] block">
-							RKD Printing
-						</b>
-						<span className="text-[0.62rem] text-[#888] font-medium uppercase tracking-wider">
-							Agri Retail Ltd.
-						</span>
-					</div>
-				</div>
-				<ul className="hidden sm:flex items-center gap-6 list-none">
-					<li>
-						<button
-							onClick={() => scrollToSection("about")}
-							className="text-[0.83rem] font-semibold text-[#555] hover:text-[#0056b3] transition-colors duration-200">
-							About
-						</button>
-					</li>
-					<li>
-						<button
-							onClick={() => scrollToSection("services")}
-							className="text-[0.83rem] font-semibold text-[#555] hover:text-[#0056b3] transition-colors duration-200">
-							Services
-						</button>
-					</li>
-					<li>
-						<button
-							onClick={() => scrollToSection("machines")}
-							className="text-[0.83rem] font-semibold text-[#555] hover:text-[#0056b3] transition-colors duration-200">
-							Machines
-						</button>
-					</li>
-					<li>
-						<button
-							onClick={() => scrollToSection("products")}
-							className="text-[0.83rem] font-semibold text-[#555] hover:text-[#0056b3] transition-colors duration-200">
-							Products
-						</button>
-					</li>
-					<li>
-						<button
-							onClick={() => scrollToSection("contact")}
-							className="bg-[#0056b3] text-white px-[18px] py-2 rounded-[20px] text-[0.82rem] font-semibold shadow-[0_4px_12px_rgba(0,86,179,0.3)] hover:-translate-y-[1px] hover:shadow-[0_6px_20px_rgba(0,86,179,0.4)] transition-all duration-200">
-							Contact
-						</button>
-					</li>
-				</ul>
-			</nav>
-
 			{/* Main Hero Section Area */}
 			<section
 				ref={heroRef}
@@ -977,14 +883,12 @@ export default function Dashboard() {
 					ref={hcanvasRef}
 					className="absolute inset-0 opacity-45 pointer-events-none"
 				/>
-				<div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:50px_50px] pointer-events-none" />
+				<div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-size-[50px_50px] pointer-events-none" />
 
 				<div
 					id="heroContent"
-					className="relative z-10 flex flex-wrap items-center justify-center gap-[60px] max-w-[1100px] w-full"
-					onMouseMove={(e) => handleTiltMove(e, 800, 5, 7, 16)}
-					onMouseLeave={(e) => handleTiltLeave(e)}>
-					<div className="flex-1 min-w-[280px]">
+					className="relative z-10 flex flex-wrap items-center justify-center gap-[60px] max-w-[1100px] w-full">
+					<div className="flex-1 min-w-70">
 						<div className="text-[0.72rem] font-bold tracking-[3px] uppercase text-[#00aeef] mb-3.5">
 							Premium Printing Solutions
 						</div>
@@ -1011,7 +915,7 @@ export default function Dashboard() {
 							</button>
 							<button
 								onClick={() => scrollToSection("contact")}
-								className="bg-transparent text-white border-1.5 border-white/35 px-7 py-3 rounded-[50px] text-[0.92rem] font-semibold cursor-pointer hover:bg-white/10 hover:border-white/60 transition-all duration-200">
+								className="bg-transparent text-white border-2 border-[#8f8f8f] px-7 py-3 rounded-[50px] text-[0.92rem] font-semibold cursor-pointer hover:bg-white/10 hover:border-white/60 transition-all duration-200">
 								Get a Quote
 							</button>
 						</div>
@@ -1254,312 +1158,6 @@ export default function Dashboard() {
 					</div>
 				</div>
 			</div>
-
-			{/* Communications & Dynamic Interactive Canvas Map */}
-			<div id="contact" className="bg-white py-[72px]">
-				<div className="max-w-[1160px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
-					<div>
-						<div className="text-[0.7rem] font-bold tracking-[2.5px] uppercase text-[#00aeef] mb-2">
-							Find us
-						</div>
-						<div className="text-3xl sm:text-[2rem] font-black text-[#0a0e1a] mb-2">
-							Locate Us
-						</div>
-						<p className="text-[#777] text-[0.91rem] leading-relaxed mb-4">
-							Conveniently located to serve all your printing needs. Walk in or
-							reach us anytime.
-						</p>
-						<p className="font-extrabold text-[#0a0e1a] text-[0.97rem] mb-1">
-							RKD Agri Retail Ltd.
-						</p>
-						<p className="text-[#777] text-[0.85rem] leading-relaxed mb-3.5">
-							Insert your full business address here, Mumbai, Maharashtra
-						</p>
-						<div className="flex flex-wrap gap-2">
-							<div className="inline-flex items-center gap-2 bg-[#f0f6ff] border border-[#0056b3]/12 rounded-[50px] p-2 px-4 text-[0.82rem] text-[#0056b3] font-semibold">
-								✉ info@rkdprinting.com
-							</div>
-							<div className="inline-flex items-center gap-2 bg-[#f0f6ff] border border-[#0056b3]/12 rounded-[50px] p-2 px-4 text-[0.82rem] text-[#0056b3] font-semibold">
-								{" "}
-								📞 +91 XXXXX XXXXX
-							</div>
-						</div>
-					</div>
-					<div
-						ref={mapWrapRef}
-						className="rounded-[22px] overflow-hidden shadow-[0_20px_56px_rgba(0,0,0,0.11)] relative h-[270px] bg-[#e8eef6] cursor-default"
-						style={{
-							transform: "perspective(700px) rotateY(-4deg) rotateX(2deg)",
-						}}
-						onMouseMove={(e) => handleTiltMove(e, 700, 8, 10)}
-						onMouseLeave={(e) => {
-							if (mapWrapRef.current) {
-								mapWrapRef.current.style.transform =
-									"perspective(700px) rotateY(-4deg) rotateX(2deg)";
-								mapWrapRef.current.style.transition = "transform 0.5s";
-								setTimeout(() => {
-									if (mapWrapRef.current)
-										mapWrapRef.current.style.transition = "";
-								}, 500);
-							}
-						}}>
-						<canvas ref={mapCanvasRef} className="absolute inset-0" />
-						<div className="absolute inset-0 flex items-center justify-center z-10">
-							<div className="text-center">
-								<div className="w-[17px] h-[17px] bg-[#ec008c] rounded-full mx-auto mb-1.5 animate-pinpulse" />
-								<div className="bg-white p-1.5 px-3 rounded-[20px] text-[0.8rem] font-bold text-[#0056b3] shadow-[0_3px_10px_rgba(0,0,0,0.1)]">
-									RKD Printing
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			{/* Global Comprehensive Landing Page Footer */}
-			<footer className="bg-gradient-to-br from-[#020b1e] via-[#041230] to-[#061840] text-white/55 relative overflow-hidden">
-				<div className="absolute inset-0 bg-[linear-gradient(rgba(0,174,239,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(0,174,239,0.04)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
-
-				<div className="max-w-[1160px] mx-auto px-6 py-16 pb-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-12 relative z-10">
-					{/* Brand Presentation Cell */}
-					<div>
-						<div className="flex items-center gap-2.5 mb-4.5">
-							<div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0056b3] to-[#00aeef] flex items-center justify-center font-black text-[13px] text-white shadow-[0_4px_16px_rgba(0,86,179,0.4)]">
-								RKD
-							</div>
-							<div className="leading-tight">
-								<b className="block text-1rem font-extrabold text-white">
-									RKD Printing
-								</b>
-								<span className="text-[0.65rem] text-white/45">
-									Agri Retail Ltd.
-								</span>
-							</div>
-						</div>
-						<p className="text-[0.84rem] line-span leading-relaxed text-white/45 mb-5.5 max-w-[280px]">
-							Mumbai's trusted printing partner for over 15 years. We deliver
-							precision, colour, and quality across every medium — from a
-							business card to a 10-foot banner.
-						</p>
-						<div className="flex gap-2.5 mb-5.5">
-							<div className="w-7 h-7 rounded-t-full rounded-bl-full -rotate-45 shadow-[2px_3px_0_rgba(0,0,0,0.4)] bg-[#00aeef] hover:scale-120 hover:-translate-y-1 transition-transform" />
-							<div className="w-7 h-7 rounded-t-full rounded-bl-full -rotate-45 shadow-[2px_3px_0_rgba(0,0,0,0.4)] bg-[#ec008c] hover:scale-120 hover:-translate-y-1 transition-transform" />
-							<div className="w-7 h-7 rounded-t-full rounded-bl-full -rotate-45 shadow-[2px_3px_0_rgba(0,0,0,0.4)] bg-[#fff200] hover:scale-120 hover:-translate-y-1 transition-transform" />
-							<div className="w-7 h-7 rounded-t-full rounded-bl-full -rotate-45 shadow-[2px_3px_0_rgba(0,0,0,0.4)] bg-white hover:scale-120 hover:-translate-y-1 transition-transform" />
-						</div>
-						<div className="flex gap-2.5">
-							<a
-								href="#"
-								className="w-[34px] h-[34px] rounded-full bg-white/6 border border-white/10 flex items-center justify-center text-sm font-bold text-white/60 hover:bg-[#00aeef]/20 hover:border-[#00aeef]/40 hover:-translate-y-0.5 transition-all">
-								f
-							</a>
-							<a
-								href="#"
-								className="w-[34px] h-[34px] rounded-full bg-white/6 border border-white/10 flex items-center justify-center text-sm font-bold text-white/60 hover:bg-[#00aeef]/20 hover:border-[#00aeef]/40 hover:-translate-y-0.5 transition-all">
-								in
-							</a>
-							<a
-								href="#"
-								className="w-[34px] h-[34px] rounded-full bg-white/6 border border-white/10 flex items-center justify-center text-sm font-bold text-white/60 hover:bg-[#00aeef]/20 hover:border-[#00aeef]/40 hover:-translate-y-0.5 transition-all">
-								w
-							</a>
-							<a
-								href="#"
-								className="w-[34px] h-[34px] rounded-full bg-white/6 border border-white/10 flex items-center justify-center text-sm font-bold text-white/60 hover:bg-[#00aeef]/20 hover:border-[#00aeef]/40 hover:-translate-y-0.5 transition-all">
-								li
-							</a>
-						</div>
-						<div className="bg-[#00aeef]/6 border border-[#00aeef]/15 rounded-[14px] p-5 mt-5">
-							<p className="text-[0.8rem] text-white/50 mb-3 font-semibold">
-								📬 Get print deals &amp; offers in your inbox
-							</p>
-							<div className="flex gap-2">
-								<input
-									type="email"
-									placeholder="your@email.com"
-									value={email}
-									onChange={(e) => setEmail(e.target.value)}
-									className="flex-1 bg-white/5 border border-white/10 rounded-[20px] p-2 px-3.5 text-[0.8rem] text-white outline-none focus:border-[#00aeef]/40 transition-colors"
-								/>
-								<button className="bg-gradient-to-br from-[#00aeef] to-[#0080c0] text-white border-none p-2 px-4 rounded-[20px] text-[0.78rem] font-bold cursor-pointer whitespace-nowrap hover:-translate-y-[1px] transition-transform">
-									Subscribe
-								</button>
-							</div>
-						</div>
-					</div>
-
-					{/* Navigation Directory Matrix Links */}
-					<div className="pl-0 md:pl-8">
-						<h4 className="text-[0.78rem] font-extrabold uppercase tracking-[2px] text-white/90 mb-4.5 pb-2.5 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:width-6 after:h-[2px] after:bg-[#00aeef] after:rounded-sm">
-							Quick Links
-						</h4>
-						<ul className="list-none space-y-2.5">
-							<li>
-								<button
-									onClick={() => scrollToSection("hero")}
-									className="text-[0.83rem] text-white/45 hover:text-[#00aeef] transition-colors flex items-center gap-1.5 before:content-['›'] before:text-[#00aeef] before:text-1rem">
-									Home
-								</button>
-							</li>
-							<li>
-								<button
-									onClick={() => scrollToSection("about")}
-									className="text-[0.83rem] text-white/45 hover:text-[#00aeef] transition-colors flex items-center gap-1.5 before:content-['›'] before:text-[#00aeef] before:text-1rem">
-									About Us
-								</button>
-							</li>
-							<li>
-								<button
-									onClick={() => scrollToSection("services")}
-									className="text-[0.83rem] text-white/45 hover:text-[#00aeef] transition-colors flex items-center gap-1.5 before:content-['›'] before:text-[#00aeef] before:text-1rem">
-									Our Services
-								</button>
-							</li>
-							<li>
-								<button
-									onClick={() => scrollToSection("machines")}
-									className="text-[0.83rem] text-white/45 hover:text-[#00aeef] transition-colors flex items-center gap-1.5 before:content-['›'] before:text-[#00aeef] before:text-1rem">
-									Our Machines
-								</button>
-							</li>
-							<li>
-								<button
-									onClick={() => scrollToSection("products")}
-									className="text-[0.83rem] text-white/45 hover:text-[#00aeef] transition-colors flex items-center gap-1.5 before:content-['›'] before:text-[#00aeef] before:text-1rem">
-									Products
-								</button>
-							</li>
-							<li>
-								<button
-									onClick={() => scrollToSection("contact")}
-									className="text-[0.83rem] text-white/45 hover:text-[#00aeef] transition-colors flex items-center gap-1.5 before:content-['›'] before:text-[#00aeef] before:text-1rem">
-									Contact Us
-								</button>
-							</li>
-						</ul>
-					</div>
-
-					{/* Capabilities Inventory Links */}
-					<div>
-						<h4 className="text-[0.78rem] font-extrabold uppercase tracking-[2px] text-white/90 mb-4.5 pb-2.5 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:width-6 after:h-[2px] after:bg-[#00aeef] after:rounded-sm">
-							Services
-						</h4>
-						<ul className="list-none space-y-2.5">
-							<li>
-								<button
-									onClick={() => scrollToSection("services")}
-									className="text-[0.83rem] text-white/45 hover:text-[#00aeef] transition-colors flex items-center gap-1.5 before:content-['›'] before:text-[#00aeef] before:text-1rem">
-									Digital Printing
-								</button>
-							</li>
-							<li>
-								<button
-									onClick={() => scrollToSection("services")}
-									className="text-[0.83rem] text-white/45 hover:text-[#00aeef] transition-colors flex items-center gap-1.5 before:content-['›'] before:text-[#00aeef] before:text-1rem">
-									Corporate Gifting
-								</button>
-							</li>
-							<li>
-								<button
-									onClick={() => scrollToSection("services")}
-									className="text-[0.83rem] text-white/45 hover:text-[#00aeef] transition-colors flex items-center gap-1.5 before:content-['›'] before:text-[#00aeef] before:text-1rem">
-									Brochures &amp; Flyers
-								</button>
-							</li>
-							<li>
-								<button
-									onClick={() => scrollToSection("services")}
-									className="text-[0.83rem] text-white/45 hover:text-[#00aeef] transition-colors flex items-center gap-1.5 before:content-['›'] before:text-[#00aeef] before:text-1rem">
-									Standees &amp; Banners
-								</button>
-							</li>
-							<li>
-								<button
-									onClick={() => scrollToSection("services")}
-									className="text-[0.83rem] text-white/45 hover:text-[#00aeef] transition-colors flex items-center gap-1.5 before:content-['›'] before:text-[#00aeef] before:text-1rem">
-									Bulk Copying
-								</button>
-							</li>
-							<li>
-								<button
-									onClick={() => scrollToSection("services")}
-									className="text-[0.83rem] text-white/45 hover:text-[#00aeef] transition-colors flex items-center gap-1.5 before:content-['›'] before:text-[#00aeef] before:text-1rem">
-									Design Services
-								</button>
-							</li>
-						</ul>
-					</div>
-
-					{/* Contact Details Grid Cell */}
-					<div className="space-y-[14px]">
-						<h4 className="text-[0.78rem] font-extrabold uppercase tracking-[2px] text-white/90 mb-4.5 pb-2.5 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:width-6 after:h-[2px] after:bg-[#00aeef] after:rounded-sm">
-							Contact
-						</h4>
-						<div className="flex items-start gap-2.5 text-[0.82rem] text-white/45 leading-normal">
-							<div className="w-7 h-7 rounded-lg bg-[#00aeef]/10 border border-[#00aeef]/25 flex items-center justify-center text-sm shrink-0 mt-0.5">
-								📍
-							</div>
-							<div>
-								Insert your full business address here, Mumbai, Maharashtra
-							</div>
-						</div>
-						<div className="flex items-start gap-2.5 text-[0.82rem] text-white/45 leading-normal">
-							<div className="w-7 h-7 rounded-lg bg-[#00aeef]/10 border border-[#00aeef]/25 flex items-center justify-center text-sm shrink-0 mt-0.5">
-								📞
-							</div>
-							<div>
-								+91 XXXXX XXXXX
-								<br />
-								+91 XXXXX XXXXX
-							</div>
-						</div>
-						<div className="flex items-start gap-2.5 text-[0.82rem] text-white/45 leading-normal">
-							<div className="w-7 h-7 rounded-lg bg-[#00aeef]/10 border border-[#00aeef]/25 flex items-center justify-center text-sm shrink-0 mt-0.5">
-								✉
-							</div>
-							<div>
-								info@rkdprinting.com
-								<br />
-								orders@rkdprinting.com
-							</div>
-						</div>
-						<div className="flex items-start gap-2.5 text-[0.82rem] text-white/45 leading-normal">
-							<div className="w-7 h-7 rounded-lg bg-[#00aeef]/10 border border-[#00aeef]/25 flex items-center justify-center text-sm shrink-0 mt-0.5">
-								🕐
-							</div>
-							<div>
-								Mon – Sat: 9:00 AM – 8:00 PM
-								<br />
-								Sunday: 10:00 AM – 4:00 PM
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div className="max-w-[1160px] mx-auto px-6">
-					<hr className="border-none border-t border-white/6 m-0" />
-				</div>
-
-				{/* Closing Layout Attributes Cell */}
-				<div className="max-w-[1160px] mx-auto px-6 py-5 flex flex-wrap items-center justify-between gap-3 text-[0.78rem] text-white/35">
-					<p>
-						&copy; 2026{" "}
-						<b className="text-white/70 font-bold">RKD Agri Retail Ltd.</b> All
-						Rights Reserved &nbsp;|&nbsp; All Types Printing Solutions
-					</p>
-					<div className="flex gap-2 flex-wrap">
-						<span className="text-[0.68rem] font-bold uppercase tracking-wider px-2.5 py-1 rounded-[20px] bg-white/5 border border-white/10 text-white/40">
-							ISO Certified
-						</span>
-						<span className="text-[0.68rem] font-bold uppercase tracking-wider px-2.5 py-1 rounded-[20px] bg-white/5 border border-white/10 text-white/40">
-							Privacy Policy
-						</span>
-						<span className="text-[0.68rem] font-bold uppercase tracking-wider px-2.5 py-1 rounded-[20px] bg-white/5 border border-white/10 text-white/40">
-							Terms of Use
-						</span>
-					</div>
-				</div>
-			</footer>
 		</div>
 	);
 }
