@@ -136,7 +136,7 @@ export default function App() {
 							className="text-[#ec008c] text-lg"
 						/>
 						<span className="font-semibold text-slate-700">
-							Operator: <span className="text-[#ec008c]">Khushi</span>
+							Operator: <span className="text-[#ec008c]">admin</span>
 						</span>
 					</div>
 				</header>

@@ -1,4 +1,3 @@
-import React from "react";
 import { scrollToSection } from "../utils/Utils";
 
 const Footer = ({ setEmail }) => {
@@ -6,7 +5,7 @@ const Footer = ({ setEmail }) => {
 		<>
 			{/* Global Comprehensive Landing Page Footer */}
 			<footer className="bg-gradient-to-br from-[#020b1e] via-[#041230] to-[#061840] text-white/55 relative overflow-hidden">
-				<div className="absolute inset-0 bg-[linear-gradient(rgba(0,174,239,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(0,174,239,0.04)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+				<div className="absolute inset-0 bg-[linear-gradient(rgba(0,174,239,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(0,174,239,0.04)_1px,transparent_1px)] bg-size-[40px_40px] pointer-events-none" />
 
 				<div className="max-w-290 mx-auto px-6 py-16 pb-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-12 relative z-10">
 					{/* Brand Presentation Cell */}
@@ -29,31 +28,31 @@ const Footer = ({ setEmail }) => {
 							precision, colour, and quality across every medium — from a
 							business card to a 10-foot banner.
 						</p>
-						<div className="flex gap-2.5 mb-5.5">
-							<div className="w-7 h-7 rounded-t-full rounded-bl-full -rotate-45 shadow-[2px_3px_0_rgba(0,0,0,0.4)] bg-[#00aeef] hover:scale-120 hover:-translate-y-1 transition-transform" />
-							<div className="w-7 h-7 rounded-t-full rounded-bl-full -rotate-45 shadow-[2px_3px_0_rgba(0,0,0,0.4)] bg-[#ec008c] hover:scale-120 hover:-translate-y-1 transition-transform" />
-							<div className="w-7 h-7 rounded-t-full rounded-bl-full -rotate-45 shadow-[2px_3px_0_rgba(0,0,0,0.4)] bg-[#fff200] hover:scale-120 hover:-translate-y-1 transition-transform" />
-							<div className="w-7 h-7 rounded-t-full rounded-bl-full -rotate-45 shadow-[2px_3px_0_rgba(0,0,0,0.4)] bg-white hover:scale-120 hover:-translate-y-1 transition-transform" />
+						<div className="flex gap-3 mb-7">
+							<div className="w-10 h-10 rounded-full transition-all duration-300 cursor-default bg-[#00aeef] shadow-[4px_5px_0_rgba(0,0,0,0.45),0_10px_18px_rgba(0,0,0,0.25)] hover:scale-130 hover:-translate-y-2 hover:shadow-[5px_8px_0_rgba(0,0,0,0.35),0_18px_28px_rgba(0,0,0,0.3)]" />
+							<div className="w-10 h-10 rounded-full transition-all duration-300 cursor-default bg-[#ec008c] shadow-[4px_5px_0_rgba(0,0,0,0.45),0_10px_18px_rgba(0,0,0,0.25)] hover:scale-130 hover:-translate-y-2 hover:shadow-[5px_8px_0_rgba(0,0,0,0.35),0_18px_28px_rgba(0,0,0,0.3)]" />
+							<div className="w-10 h-10 rounded-full transition-all duration-300 cursor-default bg-[#fff200] shadow-[4px_5px_0_rgba(0,0,0,0.45),0_10px_18px_rgba(0,0,0,0.25)] hover:scale-130 hover:-translate-y-2 hover:shadow-[5px_8px_0_rgba(0,0,0,0.35),0_18px_28px_rgba(0,0,0,0.3)]" />
+							<div className="w-10 h-10 rounded-full transition-all duration-300 cursor-default bg-white shadow-[4px_5px_0_rgba(0,0,0,0.45),0_10px_18px_rgba(0,0,0,0.25)] hover:scale-130 hover:-translate-y-2 hover:shadow-[5px_8px_0_rgba(0,0,0,0.35),0_18px_28px_rgba(0,0,0,0.3)]" />
 						</div>
 						<div className="flex gap-2.5">
 							<a
 								href="#"
-								className="w-[34px] h-[34px] rounded-full bg-white/6 border border-white/10 flex items-center justify-center text-sm font-bold text-white/60 hover:bg-[#00aeef]/20 hover:border-[#00aeef]/40 hover:-translate-y-0.5 transition-all">
+								className="w-8.5 h-8.5 rounded-full bg-white/6 border border-white/10 flex items-center justify-center text-sm font-bold text-white/60 hover:bg-[#00aeef]/20 hover:border-[#00aeef]/40 hover:-translate-y-0.5 transition-all">
 								f
 							</a>
 							<a
 								href="#"
-								className="w-[34px] h-[34px] rounded-full bg-white/6 border border-white/10 flex items-center justify-center text-sm font-bold text-white/60 hover:bg-[#00aeef]/20 hover:border-[#00aeef]/40 hover:-translate-y-0.5 transition-all">
+								className="w-8.5 h-8.5 rounded-full bg-white/6 border border-white/10 flex items-center justify-center text-sm font-bold text-white/60 hover:bg-[#00aeef]/20 hover:border-[#00aeef]/40 hover:-translate-y-0.5 transition-all">
 								in
 							</a>
 							<a
 								href="#"
-								className="w-[34px] h-[34px] rounded-full bg-white/6 border border-white/10 flex items-center justify-center text-sm font-bold text-white/60 hover:bg-[#00aeef]/20 hover:border-[#00aeef]/40 hover:-translate-y-0.5 transition-all">
+								className="w-8.5 h-8.5 rounded-full bg-white/6 border border-white/10 flex items-center justify-center text-sm font-bold text-white/60 hover:bg-[#00aeef]/20 hover:border-[#00aeef]/40 hover:-translate-y-0.5 transition-all">
 								w
 							</a>
 							<a
 								href="#"
-								className="w-[34px] h-[34px] rounded-full bg-white/6 border border-white/10 flex items-center justify-center text-sm font-bold text-white/60 hover:bg-[#00aeef]/20 hover:border-[#00aeef]/40 hover:-translate-y-0.5 transition-all">
+								className="w-8.5 h-8.5 rounded-full bg-white/6 border border-white/10 flex items-center justify-center text-sm font-bold text-white/60 hover:bg-[#00aeef]/20 hover:border-[#00aeef]/40 hover:-translate-y-0.5 transition-all">
 								li
 							</a>
 						</div>
@@ -179,7 +178,7 @@ const Footer = ({ setEmail }) => {
 					</div>
 
 					{/* Contact Details Grid Cell */}
-					<div className="space-y-[14px]">
+					<div className="space-y-3.5">
 						<h4 className="text-[0.78rem] font-extrabold uppercase tracking-[2px] text-white/90 mb-4.5 pb-2.5 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:width-6 after:h-[2px] after:bg-[#00aeef] after:rounded-sm">
 							Contact
 						</h4>
@@ -224,12 +223,12 @@ const Footer = ({ setEmail }) => {
 					</div>
 				</div>
 
-				<div className="max-w-[1160px] mx-auto px-6">
+				<div className="max-w-290 mx-auto px-6">
 					<hr className="border-none border-t border-white/6 m-0" />
 				</div>
 
 				{/* Closing Layout Attributes Cell */}
-				<div className="max-w-[1160px] mx-auto px-6 py-5 flex flex-wrap items-center justify-between gap-3 text-[0.78rem] text-white/35">
+				<div className="max-w-290 mx-auto px-6 py-5 flex flex-wrap items-center justify-between gap-3 text-[0.78rem] text-white/35">
 					<p>
 						&copy; 2026{" "}
 						<b className="text-white/70 font-bold">RKD Agri Retail Ltd.</b> All
