@@ -6,6 +6,7 @@ import Contact from "@/pages/Contact";
 import Error from "@/pages/Error";
 import HomePage from "@/pages/HomePage";
 import Service from "@/pages/Service";
+import PrintingJob from "@/pages/PrintingJob";
 
 export default function App() {
 	return (
@@ -17,6 +18,7 @@ export default function App() {
 					<Route path="about" element={<About />} />
 					<Route path="services" element={<Service />} />
 					<Route path="contact" element={<Contact />} />
+					<Route path="print-job" element={<PrintingJob />} />
 				</Route>
 				<Route path="*" element={<Error />} />
 			</Routes>
