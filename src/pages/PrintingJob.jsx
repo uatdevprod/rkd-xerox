@@ -17,7 +17,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 
-export default function App() {
+export default function PrintingJob() {
 	// State for storing the list of print jobs, persisting to localStorage
 	const [jobs, setJobs] = useState(() => {
 		const saved = localStorage.getItem("rkdRetailPrintLogs");
@@ -219,6 +219,7 @@ export default function App() {
 											className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm appearance-none focus:bg-white focus:outline-none focus:border-[#00aeef] focus:ring-1 focus:ring-[#00aeef] transition-all cursor-pointer">
 											<option value="Standard">Standard</option>
 											<option value="Glossy">Glossy</option>
+											<option value="sticker">Sticker</option>
 											<option value="Matte">Matte</option>
 											<option value="Cardstock">Cardstock</option>
 											<option value="Photo">Photo Paper</option>
